@@ -1,0 +1,60 @@
+#loginBox {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #121212;
+    overflow-y: scroll;
+}
+
+#loginForm {
+    background: #121212;
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 400px;
+    max-height: 1000px; 
+    align-content: center;
+    height: 60%;
+    width: 80%;
+    padding: 10px;
+    color: #9B4DFF;
+    border-radius: 10%;
+    box-shadow: 0px 0px 1000px 10px;
+}
+
+.inputElt {
+    /* transition: border 0.15s linear !important; */
+    border: 3px solid gray !important;
+}
+
+.inputElt:hover {
+    border-color: #9B4DFF !important;
+}
+
+.inputElt:focus {
+    border-color: #39FF14 !important;
+    outline: none;
+    box-shadow: 0px 0px 0px 0px !important;
+}
+
+.inputElt:active {
+    transform: scale(0.99);
+}
+
+.buttonStyle {
+    padding: 5px 12px !important;
+    color: white !important;
+    background-color: gray !important;
+}
+
+.buttonStyle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 2px 0px #9B4DFF, 2px 2px 20px 0px rgba(155, 77, 255, 0.5);
+}
+
+.buttonStyle:active {
+    transform: translate(-1px, -1px);
+    border-width: 0cap;
+}
