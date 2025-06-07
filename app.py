@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,jsonify,redirect,url_for,session
-from controllers import auth_RBAC
+from controllers import *
+
 
 app = Flask(__name__)
 app.register_blueprint(auth_RBAC.auth_rbac)
