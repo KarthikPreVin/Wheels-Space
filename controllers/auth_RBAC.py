@@ -1,39 +1,52 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, session
 from models import *
+
+#add-ons maybe
+#### use CSRF (flask-wtf)
+#### hash password before storing
+
 auth_rbac = Blueprint("auth_rbac",__name__)
 
-@auth_rbac.route("/submitlogin", methods=["POST", "GET"])
-def submitlogin():
+@auth_rbac.route("/login", methods=["POST", "GET"])
+def login():
     if request.method =="POST":
-        email_ = request.form["email"]
-        password = request.form["password"]
-        print(email_,password)
-        record = Users.query.filter_by(email = email_)
-        if email_ == "admin@123":
-            #admin login
-            if record.first().passw == password:
-                return render_template("admin_login.html")
+        form_email = request.form["email"]
+        form_password = request.form["password"]
+        result = Users.query.filter_by(email = form_email)
+        user = result.first()
+        if user!=None:
+            if form_email == "admin@123":
+                #admin login
+                if user.passw == form_password:
+                    session["user_id"] = user.user_id
+                    session["role"] = "ADMIN"
+                    return render_template("admin_login.html")
+                else:
+                    return render_template("login.html", hide_alert=False, alert_text="Incorrect Password")
             else:
-                return "wrong password"
-        elif record.count()!=0:
-            #user login
-            if record.first().passw == password:
-                return render_template("user_login.html")
-            else:
-                return "wrong password"
-            
+                #user login
+                if user.passw == form_password:
+                    session["user_id"] = user.user_id
+                    session["role"] = "USER"
+                    return render_template("user_login.html")
+                else:
+                    return render_template("login.html", hide_alert=False, alert_text="Incorrect Password")
         else:
             #account doesnt exist
-            pass
+            return render_template("login.html", hide_alert=False, alert_text="!Account doesn't Exist. Create New Account")
 
     else:
-        print("GET REQUEST FROM LOGIN FORM UNEXPECTED BEHAVIOUR")
-        return render_template("error_page.html",error_title="Unexpected Page Behaviour",error_text="GET REQUEST FROM LOGIN FORM UNEXPECTED BEHAVIOUR")
+        return render_template("login.html", hide_alert = True)
     
-@auth_rbac.route("/signup")
+@auth_rbac.route("/signup", methods = ["GET","POST"])
 def signup():
-    return render_template("signup.html")
+    if request.method == "POST":
+        form_email = request.form["email"]
+        form_password = request.form["password"]
+        form_fullname = request.form["fullname"]
+        form_address = request.form["address"]
+        form_pincode = request.form["pincode"]
+        return ""
 
-@auth_rbac.route("/createaccount", methods = ["GET","POST"])
-def createnew():
-    return render_template("user_login.html")
+    else:
+        return render_template("signup.html", hide_alert = True)

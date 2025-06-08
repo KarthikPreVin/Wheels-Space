@@ -17,7 +17,7 @@ with app.app_context():
     # print("TABLES: ",inspect(db.engine).get_table_names())
     check = Users.query.filter_by(email="admin@123")
     if check.count()==0:
-        admin = Users(email = "admin@123", passw = "admin") #type: ignore
+        admin = Users(email = "admin@123", passw = "admin", name="ADMIN", address = "nil", pincode = 0) #type: ignore
         db.session.add(admin)
         db.session.commit()
 

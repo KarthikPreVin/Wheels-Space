@@ -27,6 +27,9 @@
 <body>
 
     <div id="loginBox">
+        <div class="alert alert-danger" {% if hide_alert %}style="display: none;"{% endif %} role="alert">
+            {{ alert_text }}
+        </div>
         <form action="/createaccount" id="loginForm" method="POST">
         <h1 class="mb-4 appLabel">Create Account</h1>
         <div class="mb-2">

@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-flow: column;
     height: 100%;
     width: 100%;
     background-color: #121212;
