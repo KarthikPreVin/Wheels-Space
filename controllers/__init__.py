@@ -1,1 +1,1 @@
-import auth_RBAC
+from . import auth_RBAC

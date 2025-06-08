@@ -1,17 +1,30 @@
 from flask import Blueprint, request, render_template
-
+from models import *
 auth_rbac = Blueprint("auth_rbac",__name__)
 
 @auth_rbac.route("/submitlogin", methods=["POST", "GET"])
 def submitlogin():
     if request.method =="POST":
-        email = request.form["email"]
+        email_ = request.form["email"]
         password = request.form["password"]
-        print(email,password)
-        if email == "admin@123":
-            return render_template("admin_login.html")
+        print(email_,password)
+        record = Users.query.filter_by(email = email_)
+        if email_ == "admin@123":
+            #admin login
+            if record.first().passw == password:
+                return render_template("admin_login.html")
+            else:
+                return "wrong password"
+        elif record.count()!=0:
+            #user login
+            if record.first().passw == password:
+                return render_template("user_login.html")
+            else:
+                return "wrong password"
+            
         else:
-            return render_template("user_login.html")
+            #account doesnt exist
+            pass
 
     else:
         print("GET REQUEST FROM LOGIN FORM UNEXPECTED BEHAVIOUR")
