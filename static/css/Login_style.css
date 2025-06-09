@@ -1,5 +1,4 @@
 #loginBox {
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,6 +22,26 @@
     color: #9B4DFF;
     border-radius: 10%;
     box-shadow: 0px 0px 1000px 10px;
+}
+
+.bigButton {
+    padding: 5px 12px !important;
+    color: white !important;
+    background-color: gray !important;
+    padding: 15px 0px !important;
+    font-weight: bold;
+    font-size: larger;
+    max-width: 300px !important;
+}
+
+.bigButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 2px 0px #9B4DFF, 2px 2px 20px 0px rgba(155, 77, 255, 0.5);
+}
+
+.bigButton:active {
+    transform: translate(-1px, -1px);
+    border-width: 0cap;
 }
 
 .inputElt {
