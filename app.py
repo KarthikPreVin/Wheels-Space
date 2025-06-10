@@ -11,6 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = secrets.token_hex(16)
 app.register_blueprint(auth_RBAC.auth_rbac)
+app.register_blueprint(admin_routes.admin_routes)
+app.register_blueprint(user_routes.user_routes)
 
 db.init_app(app)
 with app.app_context():

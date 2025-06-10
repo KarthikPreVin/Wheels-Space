@@ -22,7 +22,7 @@ def login():
                 if user.passw == form_password:
                     session["user_id"] = user.user_id
                     session["role"] = "ADMIN"
-                    return redirect(url_for("auth_rbac.adminhome"))
+                    return redirect(url_for("admin_routes.adminhome"))
                 else:
                     return render_template("login.html", hide_alert=False, alert_text="Incorrect Password")
             else:
@@ -30,7 +30,7 @@ def login():
                 if user.passw == form_password:
                     session["user_id"] = user.user_id
                     session["role"] = "USER"
-                    return redirect(url_for("auth_rbac.home"))
+                    return redirect(url_for("user_routes.home"))
                 else:
                     #password incorrect
                     return render_template("login.html", hide_alert=False, alert_text="Incorrect Password")
@@ -70,16 +70,8 @@ def signup():
             db.session.commit()
             session["user_id"] = new_user.user_id
             session["role"] = "USER"
-            return redirect(url_for("auth_rbac.home"))
+            return redirect(url_for("user_routes.home"))
     else:
         return render_template("signup.html", hide_alert = True)
     
-@auth_rbac.route("/adminhome")
-def adminhome():
-    return render_template("admin_login.html")
-
-@auth_rbac.route("/home")
-def home():
-    return render_template("user_login.html")
-
 
