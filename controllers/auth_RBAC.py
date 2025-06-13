@@ -75,3 +75,7 @@ def signup():
         return render_template("signup.html", hide_alert = True)
     
 
+@auth_rbac.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("main"))
