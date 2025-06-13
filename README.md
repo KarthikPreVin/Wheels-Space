@@ -16,3 +16,5 @@
 ### Milestone-VP Admin-Dashboard-Management
 - Reservations table didn't allow deletion of a spot that had been reserved in the past due to foreign key constraints `Resolved`
 - Lot details being displayed where varying in size depending on number of spots in it. `Resolved`
+
+### Milestone-VP User-Dashboard-Management
