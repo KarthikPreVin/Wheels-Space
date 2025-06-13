@@ -25,7 +25,7 @@
             <div class="vr mx-3 d-none d-lg-block bg-light" style="height: 60px; width: 1px;"></div>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a href="{{url_for("auth_rbac.adminhome")}}" class="nav-link my-nav-link">Home</a> 
+                    <a href="{{url_for("admin_routes.adminhome")}}" class="nav-link my-nav-link">Home</a> 
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link my-nav-link active">Users</a> 
@@ -47,5 +47,26 @@
             </ul>
         </div>
     </nav>
+    <div class="container-fluid admin-page-box">
+        <h1 class="text-center mx-5 my-5 my-title">REGISTERED USERS</h1>
+        <div class="container-fluid border user-box">
+            <div class="row">
+                <div class="col-1 text-break border user-details admin-text" style="height: 2.2em !important; font-weight: bold; font-size: larger;">ID</div>
+                <div class="col-3 text-break border user-details admin-text" style="height: 2.2em !important; font-weight: bold; font-size: larger;">EMAIL</div>
+                <div class="col-3 text-break border user-details admin-text" style="height: 2.2em !important; font-weight: bold; font-size: larger;">NAME</div>
+                <div class="col-4 text-break border user-details admin-text" style="height: 2.2em !important; font-weight: bold; font-size: larger;">ADDRESS</div>
+                <div class="col-1 text-break border user-details admin-text" style="height: 2.2em !important; font-weight: bold; font-size: larger;">PINCODE</div>
+            </div>
+            {% for user in all_users %}
+            <div class="row">
+                <div class="col-1 text-break user-details border-bottom border-start fs-5" style="border-color: #9b4dff50 !important;">{{user.user_id}}</div>
+                <div class="col-3 text-break user-details border-bottom border-start fs-5" style="border-color: #9b4dff50 !important;">{{user.email}}</div>
+                <div class="col-3 text-break user-details border-bottom border-start fs-5" style="border-color: #9b4dff50 !important;">{{user.name}}</div>
+                <div class="col-4 text-break user-details border-bottom border-start fs-5" style="border-color: #9b4dff50 !important;">{{user.address}}</div>
+                <div class="col-1 text-break user-details border-bottom border-start border-end fs-5" style="border-color: #9b4dff50 !important;">{{user.pincode}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
