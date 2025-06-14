@@ -163,4 +163,4 @@ def adminsummary():
 
 @admin_routes.route("/adminedit")
 def adminedit():
-    return render_template("edit_profile.html")
+    return render_template("admin_edit.html")

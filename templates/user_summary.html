@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/General_style.css">
+    <link rel="stylesheet" href="../static/css/Admin_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-nav-bar">
+        <div class="navbar-brand logo">
+            <img src="{{ url_for('static', filename='images/logo.png' )}}" alt="LOGO" id="logo" class="img-fluid mb-5">
+        </div>
+        <div>
+            <div class="fw-bold text-white">Wheel's Space</div>
+            <div class="fw-bold text-white"> Hello, {{user.name}}</div>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarelements">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarelements">
+            <div class="vr mx-3 d-none d-lg-block" style = "height: 60px; width: 1px; background-color: white;"></div>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a href="{{url_for('user_routes.home', user_id = user.user_id)}}" class="nav-link my-nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link my-nav-link active">Summary</a>
+                </li>
+            </ul>
+            <div class="hr d-lg-none d-block mx-2" style = "height: 1px; width: auto; background-color: white;"></div>
+            <ul class="navbar-nav">
+                 <li class="nav-item">
+                    <a href="{{url_for('user_routes.useredit',user_id = user.user_id)}}" class="nav-link my-nav-link">Edit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url_for('auth_rbac.logout')}}" class="nav-link my-nav-link text-danger">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

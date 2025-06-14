@@ -30,7 +30,7 @@ def login():
                 if user.passw == form_password:
                     session["user_id"] = user.user_id
                     session["role"] = "USER"
-                    return redirect(url_for("user_routes.home"))
+                    return redirect(url_for("user_routes.home",user_id = user.user_id))
                 else:
                     #password incorrect
                     return render_template("login.html", hide_alert=False, alert_text="Incorrect Password")
@@ -70,7 +70,7 @@ def signup():
             db.session.commit()
             session["user_id"] = new_user.user_id
             session["role"] = "USER"
-            return redirect(url_for("user_routes.home"))
+            return redirect(url_for("user_routes.home",user_id = new_user.user_id))
     else:
         return render_template("signup.html", hide_alert = True)
     
