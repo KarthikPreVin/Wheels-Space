@@ -161,6 +161,29 @@ def adminsearch():
 def adminsummary():
     return render_template("admin_summary.html")
 
-@admin_routes.route("/adminedit")
+@admin_routes.route("/adminedit", methods = ["GET","POST"])
 def adminedit():
-    return render_template("admin_edit.html")
+    user = Users.query.filter_by(user_id = 1).first()
+    if request.method=="POST":
+        password = request.form.get("password")
+        fullname = request.form.get("fullname")
+        address = request.form.get("address")
+        pincode = request.form.get("pincode")
+
+        if len(password)<8 or len(password)>32:
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=True, alert_text = "Password length should be between 8 and 32")
+        elif len(fullname)==0:
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=True, alert_text = "Full name cannot be empty")
+        elif len(address)==0:
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=True, alert_text = "Address cannot be empty")
+        elif len(pincode)==0:
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=True, alert_text = "Pincode cannot be empty")        
+        else:
+            user.passw = password
+            user.name  = fullname
+            user.address=address
+            user.pincode=pincode
+            db.session.commit()
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=False, alert_text = "Updated Successfully")        
+        
+    return render_template("admin_edit.html", user=user, hide_alert=True)

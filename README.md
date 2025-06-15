@@ -21,3 +21,4 @@
 - forgot to add user_id in url for user's homepage `Resolved`
 - loading reservation, users, lots, and spots for home page takes time. added joinedload `Resolved`
 - joinedload syntax issues couldn't be resolved. used raw SQL query. `Resolved`
+- calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation
