@@ -177,3 +177,29 @@
     font-weight: bold;
     text-align: center;
 }
+
+.admin-green-span{
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    transition: 0.2s all linear;
+    text-align: center;
+    color: #85ee9f;
+    text-shadow: 0px 0px 10px #134c00, 0px 0px 20px #ff0000;
+}
+
+.admin-red-span{
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    transition: 0.2s all linear;
+    text-align: center;
+    color: #ff4141;
+    text-shadow: 0px 0px 10px #810a0a, 0px 0px 20px #00ff00;
+}

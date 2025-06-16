@@ -2,6 +2,8 @@ from flask import Blueprint, session, url_for, render_template, redirect, reques
 from sqlalchemy.orm import joinedload
 from models import *
 from mydb import db
+from sqlalchemy import text
+from datetime import datetime
 
 admin_routes = Blueprint("admin_routes",__name__)
 
@@ -152,6 +154,42 @@ def addlot():
 def adminusers():
     users = Users.query.all()
     return render_template("admin_users.html", all_users = users[1:])
+
+@admin_routes.route("/adminhistory")
+def adminhistory():
+    uid = request.args.get("userid")
+    if (uid!=None):
+        if not uid.isdigit():
+            return render_template("admin_history.html", search=False)
+        else:
+            user = Users.query.filter_by(user_id = uid).first()
+            if user==None:
+                return render_template("admin_history.html",search=False,show_alert=True)
+            raw_sql =  text(f"""SELECT 
+                                    spots.spot_id, 
+                                    lots.location, 
+                                    reservations.vehicle_number, 
+                                    reservations.parking_timestamp, 
+                                    reservations.leaving_timestamp
+                                FROM reservations 
+                                LEFT OUTER JOIN spots ON (reservations.spot_id = spots.spot_id)
+                                JOIN lots ON (spots.lot_id=lots.lot_id)
+                                JOIN users ON (users.user_id = reservations.user_id)
+                                WHERE users.user_id = {uid};""")
+            res = db.session.execute(raw_sql).all()
+            #ordering
+            i=len(res)-1
+            ind = i
+            while i>=0:
+                if res[ind].leaving_timestamp==None:
+                    res.insert(0,res.pop(ind))
+                    ind+=1
+                i-=1
+                ind-=1
+
+            return render_template("admin_history.html", search=True, user_id = uid, reservations = res, datetime=datetime)
+    else:
+        return render_template("admin_history.html", search=False)
 
 @admin_routes.route("/adminsearch")
 def adminsearch():

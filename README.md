@@ -22,3 +22,7 @@
 - loading reservation, users, lots, and spots for home page takes time. added joinedload `Resolved`
 - joinedload syntax issues couldn't be resolved. used raw SQL query. `Resolved`
 - calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation
+
+### Milestone-VP Summary-Users-Admin
+- unable to accomodate reservation history for users in `\adminuser` (added new route `adminhistory`) `Resolved`
+- calculation of time parked in jinja templating leading to errors as datetime wasn't in context `Resolved`
