@@ -80,15 +80,21 @@
             </div>
             <div class="row justify-content-center">
                 <div class="user-green-span border rounded col-10 text-center collapse" id="reciept">
+                    {% set hours = (curtime-res.parking_timestamp).total_seconds()//3600 %}
+                    {% set total = hours* lot.price | float  %}
                     <h2>RECIEPT</h2>
                     <div>
-                        TIME: x hrs
+                        <span> TIME: </span>
+                        <span class="view-highlight">{{hours}} hrs</span> 
                     </div>
                     <div>
-                        rate: y per hour
+                        <span> RATE: </span>
+                        <span class="view-highlight">{{lot.price}} per hour</span>
+                        
                     </div>
                     <div>
-                        total amount: x*y
+                        <span> TOTAL: </span> 
+                        <span class="view-highlight"> Rs. {{ "%.2f" | format(total) }}/-</span>
                     </div>
                     <a href="{{url_for('user_routes.confirmreleasespot',user_id = user.user_id, spot_id = spot_id)}}" class="user-btn col-7 add-btn">CONFIRM</a>
                 </div>

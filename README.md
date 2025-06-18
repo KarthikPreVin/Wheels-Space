@@ -26,3 +26,6 @@
 ### Milestone-VP Summary-Users-Admin
 - unable to accomodate reservation history for users in `\adminuser` (added new route `adminhistory`) `Resolved`
 - calculation of time parked in jinja templating leading to errors as datetime wasn't in context `Resolved`
+
+### Milestone-VP Cost-Calculation
+- displaying price as difference of leaving timee and parking time was challenging in jinja
