@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="../static/css/General_style.css">
     <link rel="stylesheet" href="../static/css/Admin_style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-nav-bar">
@@ -29,7 +26,7 @@
                     <a href="{{url_for("admin_routes.adminhome")}}" class="nav-link my-nav-link">Home</a> 
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link my-nav-link active">Users</a> 
+                    <a href="{{url_for("admin_routes.adminusers")}}" class="nav-link my-nav-link">Users</a> 
                 </li>
                 <li class="nav-item">
                     <a href="{{url_for("admin_routes.adminsearch")}}" class="nav-link my-nav-link">Search</a> 
@@ -59,17 +56,19 @@
         </form>
     </div>
     {% if search %}
-    <div class="container my-3 user-box">
+    <div class="container my-3 user-box" style="max-width: 1200px;">
         <div class="row">
             <span class="my-title h1 m-3 col text-center">RESERVATIONS FOR USER#{{user_id}}</span>
         </div>
         <div class="row mb-1 mb-lg-0">
-            <div class="table-heading col-6 col-md-5 col-lg-4">LOT</div>
+            <div class="table-heading col-6 col-md-5 col-lg-4 col-xl-3">LOT</div>
             <div class="table-heading col-6 col-md-3 col-lg-3">TIMESTAMP</div>
-            <div class="table-heading d-none d-md-block col-md-4 col-lg-3">VEHICLE NUMBER</div>
+            <div class="table-heading d-none d-md-block col-md-4 col-lg-3 col-xl-2">VEHICLE NUMBER</div>
             <div class="table-heading d-none d-lg-block col-lg-2">STATUS</div>
+            <div class="table-heading d-none d-xl-block col-xl-2">PRICE</div>
+            
         </div>
-        {% if reservations | length == 0%}
+        {% if reservations | length == 0 %}
             <div class="row mb-1 mb-lg-0">
                 <div class="table-element col h2">
                     NO RESERVATIONS
@@ -78,14 +77,14 @@
         {% else %}
             {% for res in reservations %}
                 {% if res.leaving_timestamp!=None %}
-                    {% set duration = (datetime.strptime(res.leaving_timestamp[:-10],'%Y-%m-%d %H:%M')-datetime.strptime(res.parking_timestamp[:-10],'%Y-%m-%d %H:%M')).total_seconds()//3600 %}
+                    {% set duration = ((datetime.strptime(res.leaving_timestamp[:-10],'%Y-%m-%d %H:%M')-datetime.strptime(res.parking_timestamp[:-10],'%Y-%m-%d %H:%M')).total_seconds()+3599)//3600 %}
                 {% else %}
-                    {% set duration = -1 %}
+                    {% set duration = ((datetime.now() - datetime.strptime(res.parking_timestamp[:-10],'%Y-%m-%d %H:%M')).total_seconds()+3599)//3600 %}
                 {% endif %}
             <div class="row mb-1 mb-lg-0">
-                <div class="table-element col-6 col-md-5 col-lg-4">LOT@{{res.location}}</div>
-                <div class="table-element col-6 col-md-3">{{res.parking_timestamp[:-10]}}({{duration}}hrs)</div>
-                <div class="table-element col-6 col-md-4 col-lg-3">
+                <div class="table-element col-6 col-md-5 col-lg-4 col-xl-3">LOT@{{res.location}}</div>
+                <div class="table-element col-6 col-md-3">{{res.parking_timestamp[:-10]}}({{ "%d" | format(duration)}}hrs)</div>
+                <div class="table-element col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="d-flex license-plate justify-content-center">
                         <span>{{res.vehicle_number}}</span>
                     </div>
@@ -97,6 +96,14 @@
                         <span class="admin-green-span">RELEASED</span>
                     {% endif %}
                 </div>
+                <div class="table-element d-none d-xl-flex col-xl-2">
+                    {% if res.leaving_timestamp==None %}
+                        Rs. --
+                    {% else %}
+                        {% set price = duration*res.price | float %}
+                        Rs. {{ "%.2f" | format(price)}}
+                    {% endif %}
+                </div>
             </div>
             {% endfor %}
         {% endif %}
@@ -105,3 +112,4 @@
 
 </body> 
 </html>
+

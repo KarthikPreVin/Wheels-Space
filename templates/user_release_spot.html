@@ -73,6 +73,7 @@
                 <div class="col my-label">RATE</div>
                 <div class="col my-value view-highlight">{{lot.price}} per hr</div>
             </div>
+            <span class="view-highlight w-100 col-12">(time is calculated in hourly increments.<br>i.e. 61mins will be considered as 2hrs)</span>
             <p>CHECK OUT SPOT IN PARKING LOT AT {{lot.address}}, {{lot.location}}?</p>
             <div class="row justify-content-center">
                 <a href="{{url_for('user_routes.home',user_id = user.user_id)}}" class="user-btn col-4 edit-btn">BACK</a>
@@ -80,7 +81,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="user-green-span border rounded col-10 text-center collapse" id="reciept">
-                    {% set hours = (curtime-res.parking_timestamp).total_seconds()//3600 %}
+                    {% set hours = ((curtime-res.parking_timestamp).total_seconds()+3599)//3600 %}
                     {% set total = hours* lot.price | float  %}
                     <h2>RECIEPT</h2>
                     <div>
@@ -90,7 +91,6 @@
                     <div>
                         <span> RATE: </span>
                         <span class="view-highlight">{{lot.price}} per hour</span>
-                        
                     </div>
                     <div>
                         <span> TOTAL: </span> 

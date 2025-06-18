@@ -167,7 +167,8 @@ def adminhistory():
                 return render_template("admin_history.html",search=False,show_alert=True)
             raw_sql =  text(f"""SELECT 
                                     spots.spot_id, 
-                                    lots.location, 
+                                    lots.location,
+                                    lots.price,
                                     reservations.vehicle_number, 
                                     reservations.parking_timestamp, 
                                     reservations.leaving_timestamp
