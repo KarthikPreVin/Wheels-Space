@@ -194,7 +194,25 @@ def adminhistory():
 
 @admin_routes.route("/adminsearch")
 def adminsearch():
-    return render_template("admin_search.html")
+    search = request.args.get("searchID")
+    choice = request.args.get("choice")
+    if search!=None and search!="":
+        if choice=="user_id":
+            user = Users.query.filter_by(user_id = int(search)).first()
+            return render_template("admin_search.html", search = True, type = 1, data=user)
+        elif choice=="lot_id":
+            lot = Lots.query.filter_by(lot_id = int(search)).first()
+            return render_template("admin_search.html", search = True, type = 2, data=lot)
+        elif choice=="spot_id":
+            spot = Spots.query.filter_by(spot_id = int(search)).first()
+            return render_template("admin_search.html", search = True, type = 3, data=spot)
+        elif choice=="reservation_id":
+            res = Reservations.query.filter_by(reservation_id = int(search)).first()
+            return render_template("admin_search.html", search = True, type = 4, data=res)
+            
+
+
+    return render_template("admin_search.html", search = False)
 
 @admin_routes.route("/adminsummary")
 def adminsummary():

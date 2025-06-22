@@ -48,5 +48,124 @@
             </ul>
         </div>
     </nav>
+    <div class="d-flex mt-4 justify-content-center p-2 w-100">
+        <div class="my-title h1 text-center" style="max-width: 600px;">
+            SEARCH
+        </div>
+    </div>
+    <div class="container p-0 admin-page-box">
+        <div class="d-flex justify-content-center p-1">
+            <form action="{{url_for('admin_routes.adminsearch')}}" class="form my-form col-12" style="max-width: 600px;">
+                <input type="number" class="form-control mb-2" id = "searchID" name="searchID" placeholder="enter ID">
+                <div class="d-flex">
+                    <p for="choice" class="col-4 view-highlight h4 mb-0" style="width: 40%; text-align: right; display: block; color: #9b4dff;">SEARCH BY</p>
+                    <div class="col-1"></div>
+                    <select class="col-6 w-50 d-flex form-control" name="choice" id="choice">
+                        <option value="user_id">USER ID</option>
+                        <option value="lot_id">LOT ID</option>
+                        <option value="spot_id">SPOT ID</option>
+                        <option value="reservation_id">RESERVATION ID</option>
+                    </select>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <input class="admin-button col-4 edit-btn" type="submit" value="SEARCH">
+                </div>
+            </form>
+        </div>
+        {% if search == True %}
+        <div class="container p-2">
+            {% if type==1 %}
+            <div class="mt-3 container search-info-box">
+                <h2 class="admin-text">USER #{{data.user_id}}</h2>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-3">EMAIL:</span> 
+                    <span class="col-9 view-highlight"> {{data.email}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-3">NAME:</span> 
+                    <span class="col-9 view-highlight"> {{data.name}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">ADDRESS:</span> 
+                    <span class="col-8 view-highlight"> {{data.address}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">PINCODE:</span> 
+                    <span class="col-8 view-highlight"> {{data.pincode}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <div class="col-5">RESERVATION:</div> 
+                    {% set condition = "?userid=%d" | format(data.user_id) %}
+                    <a href="{{url_for('admin_routes.adminhistory') + condition}}" class="admin-button col-5  add-btn">VIEW</a>
+                </div>
+            </div>
+            {% elif type==2 %}
+            <div class="mt-3 container search-info-box">
+                <h2 class="admin-text">LOT #{{data.lot_id}}</h2>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">LOCATION:</span> 
+                    <span class="col-8 view-highlight"> {{data.location}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">ADDRESS:</span> 
+                    <span class="col-8 view-highlight"> {{data.address}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">PINCODE:</span> 
+                    <span class="col-8 view-highlight"> {{data.pincode}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-3">RATE:</span> 
+                    <span class="col-9 view-highlight"> {{data.price}} per hour </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <div class="col-5">MAX-SPOTS:</div> 
+                    <span class="col-7 view-highlight"> {{data.max_spots}} </span>
+                </div>
+            </div>
+            {% elif type==3 %}
+            <div class="mt-3 container search-info-box">
+                    <h2 class="admin-text">SPOT #{{data.spot_id}}</h2>
+                    <div class="admin-text justify-content-center row mb-2 align-items-center">
+                        <span class="col-3">LOT ID:</span> 
+                        <span class="col-9 view-highlight"> lot#{{data.lot_id}} </span>
+                    </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-3">STATUS: </span> 
+                    <span class="col-9 view-highlight"> {{data.status.value}} </span>
+                </div>
+            </div>
+            {% elif type==4 %}
+            <div class="mt-3 container search-info-box">
+                <h2 class="admin-text">RESERVATION #{{data.reservation_id}}</h2>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">USER ID:</span> 
+                    <span class="col-8 view-highlight"> user#{{data.user_id}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">SPOT ID:</span> 
+                    <span class="col-8 view-highlight"> spot#{{data.spot_id}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">ENTRY:</span> 
+                    <span class="col-8 view-highlight"> {{data.parking_timestamp.strftime("%d-%m-%Y %H:%M")}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">EXIT:</span> 
+                    <span class="col-8 view-highlight"> {{data.leaving_timestamp.strftime("%d-%m-%Y %H:%M")}} </span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">VEHICLE NUMBER:</span> 
+                    <span class="col-8 view-highlight"> <span class="license-plate"> {{data.vehicle_number}} </span></span>
+                </div>
+                <div class="admin-text justify-content-center row mb-2 align-items-center">
+                    <span class="col-4">PRICE:</span> 
+                    <span class="col-8 view-highlight"> Rs.{{data.price_per_hour}}/- </span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
