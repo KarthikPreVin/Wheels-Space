@@ -21,11 +21,15 @@
 - forgot to add user_id in url for user's homepage `Resolved`
 - loading reservation, users, lots, and spots for home page takes time. added joinedload `Resolved`
 - joinedload syntax issues couldn't be resolved. used raw SQL query. `Resolved`
-- calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation
+- calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation `Resolved`
 
 ### Milestone-VP Summary-Users-Admin
 - unable to accomodate reservation history for users in `\adminuser` (added new route `adminhistory`) `Resolved`
 - calculation of time parked in jinja templating leading to errors as datetime wasn't in context `Resolved`
 
 ### Milestone-VP Cost-Calculation
-- displaying price as difference of leaving timee and parking time was challenging in jinja
+- displaying price as difference of leaving timee and parking time was challenging in jinja `Resolved`
+
+### Milestone-VP Search-Implemented
+- alignment issues `Resolved`
+
