@@ -216,7 +216,25 @@ def adminsearch():
 
 @admin_routes.route("/adminsummary")
 def adminsummary():
-    return render_template("admin_summary.html")
+    # collect lotwise reservaation count
+    # collect location wise reservation count
+    query = text(
+        """
+        SELECT lots.lot_id, lots.location, count(*) as total
+        FROM reservations res
+        JOIN spots ON (spots.spot_id = res.spot_id)
+        JOIN lots ON (lots.lot_id = spots.lot_id)
+        GROUP BY lots.lot_id,lots.location
+        """
+    )
+    data = db.session.execute(query).all()
+    dict1 = {}
+    dict2 = {}
+    for row in data:
+        dict1[row.lot_id] = dict1.get(row.lot_id,0)+row.total
+        dict2[row.location] = dict2.get(row.location,0)+row.total
+
+    return render_template("admin_summary.html", data1 = dict1, data2 = dict2)
 
 @admin_routes.route("/adminedit", methods = ["GET","POST"])
 def adminedit():

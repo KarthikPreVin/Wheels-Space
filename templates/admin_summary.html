@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="../static/css/General_style.css">
     <link rel="stylesheet" href="../static/css/Admin_style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-nav-bar">
         <div class="navbar-brand logo">
-            <img src = {{ url_for('static', filename='images/logo.png')}} alt="WHEEL'S SPACE LOGO" id="logo" class="img-fluid mb-5">
+            <img src = "{{ url_for('static', filename='images/logo.png')}}" alt="WHEEL'S SPACE LOGO" id="logo" class="img-fluid mb-5">
         </div>
         <span class="fw-bold text-white">Wheel's Space</span>
         
@@ -53,5 +51,70 @@
             <a href="{{url_for('admin_routes.adminhistory')}}" class="admin-button col-11 col-sm-6 col-md-4 col-xl-3 edit-btn">VIEW USER RESERVATION LOG</a>
         </div>
     </div>
+    <div class="container-fluid row d-flex justify-content-center">
+        <div class="chart col-11 col-md-5">
+            <canvas id="chart1" width="600" height="600"></canvas>
+        </div>
+        <div class="chart col-11 col-md-5">
+            <canvas id="chart2" width="600" height="600"></canvas>
+        </div>
+    </div>
+
+    {% set x1 = data1.keys() | list %}
+    {% set y1 = data1.values() | list %}
+
+    {% set x2 = data2.keys() | list | tojson%}
+    {% set y2 = data2.values() | list %}
+
+
+    {{x1}}
+    {{y1}}
+    {{x2}}
+    {{y2}}
+    <script>
+        const chart1 = document.getElementById("chart1");
+        const chart2 = document.getElementById("chart2");
+        function concatlot(num){
+            return `LOT ${num}`
+        }
+        new Chart(chart1,{
+            type: 'bar',
+            data: {
+                labels: {{x1}}.map(concatlot) ,
+                datasets: [{
+                    label: '# of reservations',
+                    data: {{y1}},
+                    borderWidth: 1
+                }],
+            },
+            options:  {
+                scales: {
+                    y: {
+                        beginsAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(chart2,{
+            type: 'bar',
+            data: {
+                labels: {{x2}} ,
+                datasets: [{
+                    label: '# of reservations',
+                    data: {{y2}},
+                    borderWidth: 1
+                }],
+            },
+            options:  {
+                scales: {
+                    y: {
+                        beginsAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
 </body>
 </html>
