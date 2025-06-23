@@ -11,7 +11,7 @@
 
 ### Milestone-VP Auth-RBAC
 - used different routes for GET and POST requests for login and signup form causing inconsistency while redirecting `Resolved`
-- initially used `href='admin_signup.html'` which causes errors while rendered by flask `Resolved`
+- initially used `href='admin_signup.html'` which causes errors while rendered by flask. switched to runtime jinja templating to pass href values using `url_for` function `Resolved`
 
 ### Milestone-VP Admin-Dashboard-Management
 - Reservations table didn't allow deletion of a spot that had been reserved in the past due to foreign key constraints `Resolved`
@@ -24,7 +24,7 @@
 - calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation `Resolved`
 
 ### Milestone-VP Summary-Users-Admin
-- unable to accomodate reservation history for users in `\adminuser` (added new route `adminhistory`) `Resolved`
+- unable to accomodate reservation history for users in `/adminuser` (added new route `/adminhistory`) `Resolved`
 - calculation of time parked in jinja templating leading to errors as datetime wasn't in context `Resolved`
 
 ### Milestone-VP Cost-Calculation
@@ -32,4 +32,8 @@
 
 ### Milestone-VP Search-Implemented
 - alignment issues `Resolved`
+
+### Milestone-VP Charts
+- jinja's `tojson` method converted `[]` to `'[]'` leading to empty list checks failing `Resolved`
+
 

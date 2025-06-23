@@ -53,20 +53,32 @@
     </div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-evenly mb-4 ">
-            <div class="chart col-11 col-md-5">
-                <canvas id="chart1" width="600" height="530"></canvas>
-            </div>
-            <div class="chart col-11 col-md-5">
+            <div class="chart-describe col-11 d-lg-none">Bar chart shows number of reservations per location</div>
+            <div class="chart col-11 col-lg-7">
                 <canvas id="chart2" width="600" height="530"></canvas>
             </div>
+            <div class="chart-describe col-lg-4 d-none d-lg-block">Bar chart shows number of reservations per location</div>
         </div>
-
+        <hr class="mx-3" style="height: 2px; background-color: white; border: none;">
         <div class="row d-flex justify-content-evenly mb-4">
-            <div class="chart col-11 col-md-5">
+            <div class="chart-describe col-11 col-lg-4">Doughnut chart displaying distribution of spots and lots across locations</div>
+            <div class="chart col-11 col-lg-7">
                 <canvas id="chart3" width="600" height="530"></canvas>
             </div>
-            <div class="chart col-11 col-md-5">
+        </div>
+        <hr class="mx-3" style="height: 2px; background-color: white; border: none;">
+        <div class="row d-flex justify-content-evenly mb-4">
+            <div class="chart-describe col-11 d-lg-none">Line chart showing reservations made in the month {{month}}</div>
+            <div class="chart col-11 col-lg-7">
                 <canvas id="chart4" width="600" height="530"></canvas>
+            </div>
+            <div class="chart-describe col-lg-4 d-none d-lg-block">Line chart showing reservations made in the month {{month}}</div>
+        </div>
+        <hr class="mx-3" style="height: 2px; background-color: white; border: none;">
+        <div class="row d-flex justify-content-evenly mb-4 ">
+            <div class="chart-describe col-11 col-lg-4">Bar chart shows number of reservations per lot</div>
+            <div class="chart col-11 col-lg-7">
+                <canvas id="chart1" width="600" height="530"></canvas>
             </div>
         </div>
     </div>

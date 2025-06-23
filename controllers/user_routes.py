@@ -111,7 +111,23 @@ def reservespot(user_id, lot_id):
 @user_routes.route("/summary/<int:user_id>")
 def summary(user_id):
     user = Users.query.filter_by(user_id = user_id).first()
-    return render_template("user_summary.html", user = user)
+    query = text(
+        f"""
+        SELECT l.location, count(*) AS total
+        FROM lots l 
+        JOIN spots s ON (s.lot_id = l.lot_id)
+        JOIN reservations r ON (r.spot_id = s.spot_id)
+        JOIN users u ON (u.user_id = r.user_id)
+        WHERE u.user_id = {user_id}
+        GROUP BY l.location"""
+    )
+    res = db.session.execute(query)
+    data1 = {}
+
+    for row in res:
+        data1[row.location] = row.total
+
+    return render_template("user_summary.html", user = user, data1 = data1)
 
 @user_routes.route('/useredit/<int:user_id>', methods = ["GET","POST"])
 def useredit(user_id):

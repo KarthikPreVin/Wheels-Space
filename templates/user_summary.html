@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/General_style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/User_style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-nav-bar">
@@ -43,5 +44,43 @@
             </ul>
         </div>
     </nav>
+    <div class="d-flex justify-content-center my-3">
+        <div class="h1 my-title">
+            RESERVATIONS SUMMARY FOR {{user.name}}
+        </div>
+    </div>
+    {% set x1 = data1.keys() | list | tojson %}
+    {% set y1 = data1.values() | list %}
+
+    {% if y1|length == 0 %}
+    <div class="container-fluid d-flex justify-content-center my-5">
+        <span class="view-highlight h2">NO RESERVATIONS MADE YET </span>
+    </div>
+    {% else %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-evenly mb-4 ">
+            <div class="chart-describe col-11 col-lg-4">Pie chart shows reservations per location</div>
+            <div class="chart col-11 col-lg-7">
+                <canvas id="chart1" width="600" height="530"></canvas>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        const chart1 = document.getElementById("chart1");
+
+        new Chart(chart1,{
+            type: 'pie',
+            data: {
+                labels: {{x1}},
+                datasets: [{
+                    label: "# of reservations",
+                    data: {{y1}},
+                    hoverOffset: 20
+                }]
+            }
+        })
+    </script>
 </body>
 </html>
