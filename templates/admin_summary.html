@@ -51,12 +51,23 @@
             <a href="{{url_for('admin_routes.adminhistory')}}" class="admin-button col-11 col-sm-6 col-md-4 col-xl-3 edit-btn">VIEW USER RESERVATION LOG</a>
         </div>
     </div>
-    <div class="container-fluid row d-flex justify-content-center">
-        <div class="chart col-11 col-md-5">
-            <canvas id="chart1" width="600" height="600"></canvas>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-evenly mb-4 ">
+            <div class="chart col-11 col-md-5">
+                <canvas id="chart1" width="600" height="530"></canvas>
+            </div>
+            <div class="chart col-11 col-md-5">
+                <canvas id="chart2" width="600" height="530"></canvas>
+            </div>
         </div>
-        <div class="chart col-11 col-md-5">
-            <canvas id="chart2" width="600" height="600"></canvas>
+
+        <div class="row d-flex justify-content-evenly mb-4">
+            <div class="chart col-11 col-md-5">
+                <canvas id="chart3" width="600" height="530"></canvas>
+            </div>
+            <div class="chart col-11 col-md-5">
+                <canvas id="chart4" width="600" height="530"></canvas>
+            </div>
         </div>
     </div>
 
@@ -66,16 +77,19 @@
     {% set x2 = data2.keys() | list | tojson%}
     {% set y2 = data2.values() | list %}
 
+    {% set x3 = data3.keys() | list | tojson%}
+    {% set y3 = data3.values() | list %}
+    {% set y4 = data4 | list %}
 
-    {{x1}}
-    {{y1}}
-    {{x2}}
-    {{y2}}
+    {% set x5 = data5.keys() | list %}
+    {% set y5 = data5.values() | list %}
     <script>
         const chart1 = document.getElementById("chart1");
         const chart2 = document.getElementById("chart2");
+        const chart3 = document.getElementById("chart3");
+        const chart4 = document.getElementById("chart4");
         function concatlot(num){
-            return `LOT ${num}`
+            return `LOT ${num}`;
         }
         new Chart(chart1,{
             type: 'bar',
@@ -114,6 +128,44 @@
                 }
             }
         });
+
+        new Chart(chart3,{
+            type: "doughnut",
+            data: {
+                labels: {{x3}},
+                datasets: [
+                    {
+                        label: "# of lots",
+                        data: {{y3}},
+                        hoverOffset: 20
+                    },
+                    {
+                        label: "# of spots",
+                        data: {{y4}},
+                        hoverOffset: -20
+                    },
+                ]
+            }
+        })
+
+        new Chart(chart4, {
+            type: 'line',
+            data: {
+                labels: {{x5}},
+                datasets: [{
+                    label: "Reservations per day",
+                    data: {{y5}},
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Reservations in {{month}}'
+                    }
+                }
+            }
+        })
     </script>
 
 </body>

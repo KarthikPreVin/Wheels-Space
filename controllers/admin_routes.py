@@ -6,8 +6,16 @@ from sqlalchemy import text
 from datetime import datetime
 
 admin_routes = Blueprint("admin_routes",__name__)
-
-
+def days(month,year):
+    if month in [1,3,5,7,8,10,12]:
+        return 31
+    elif month in [4,6,9,11]:
+        return 30
+    else:
+        if year%4==0:
+            return 29
+        else:
+            return 28
 
 @admin_routes.route("/adminhome")
 def adminhome():
@@ -233,8 +241,29 @@ def adminsummary():
     for row in data:
         dict1[row.lot_id] = dict1.get(row.lot_id,0)+row.total
         dict2[row.location] = dict2.get(row.location,0)+row.total
+    #lot count
+    query = text(
+        """SELECT location, count(*) AS total FROM LOTS GROUP BY location"""
+    )
+    dict3 = {row.location: row.total for row in db.session.execute(query).all()}
+    #spot count
+    query = text(
+        """SELECT l.location, count(*) AS total FROM LOTS l JOIN SPOTS s ON (l.lot_id = s.lot_id) GROUP BY l.location"""
+    )
+    dict4 = {row.location: row.total for row in db.session.execute(query).all()}
+    spot_list = []
+    for i in dict3:
+        spot_list.append(dict4[i])
 
-    return render_template("admin_summary.html", data1 = dict1, data2 = dict2)
+    monthly_reservations = Reservations.query.all()
+    today = datetime.now()
+    dict5 = dict.fromkeys(range(1,days(today.month,today.year)+1),0)
+    month = today.strftime("%B")
+    for i in monthly_reservations:
+        if i.parking_timestamp.month == today.month and i.parking_timestamp.year==today.year:
+            dict5[i.parking_timestamp.day]+=1
+
+    return render_template("admin_summary.html", data1 = dict1, data2 = dict2, data3 = dict3, data4 = spot_list, data5=dict5, month=month)
 
 @admin_routes.route("/adminedit", methods = ["GET","POST"])
 def adminedit():
