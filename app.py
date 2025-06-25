@@ -24,10 +24,20 @@ with app.app_context():
     # print("TABLES: ",inspect(db.engine).get_table_names())
     check = Users.query.filter_by(email="admin@123")
     if check.count()==0:
-        
         admin = Users(email = "admin@123", passw = "admin", name="ADMIN", address = "nil", pincode = 0)
         db.session.add(admin)
         db.session.commit()
+
+@app.route("/")
+def main():
+    return render_template("index.html")
+
+
+if __name__=="__main__":
+    app.run(debug=True)
+
+
+"""
 
         test_lot = Lots(
             location="Location1",
@@ -98,11 +108,4 @@ with app.app_context():
             db.session.add(reservation)
             
         db.session.commit()
-
-@app.route("/")
-def main():
-    return render_template("index.html")
-
-
-if __name__=="__main__":
-    app.run(debug=True)
+"""
