@@ -1,39 +1,70 @@
 # MAD1-vehicle-parking-app-v1
+
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
 ## Description
-- A parking lot management website created using HTML CSS and Flask For MAD1 (BSCS2003P) project.
-- Made Responsive with Bootstrap-5
+This is a responsive, web-based parking lot management system developed for the May 2025 MAD1 (BSCS2003P) project. The application provides a user-friendly interface with a modern UI design, user authentication, admin management, and visual summaries. It is built mainly using Flask, HTML/CSS, and Bootstrap 5. The system supports both users and administrators with role-based access and dynamic data handling.
+
+## Technology Used
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-3.1.1-lightgrey?logo=flask)
+![Sqlite3](https://img.shields.io/badge/Sqlite-3.48.0-blue?logo=sqlite)
+![HTML5](https://img.shields.io/badge/HTML-5-orange?logo=html5)
+![CSS3](https://img.shields.io/badge/CSS-3-blue?logo=css3)
+![Jinja](https://img.shields.io/badge/Jinja-Templating-red)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap)
+![Chart.js](https://img.shields.io/badge/Chart.js-visualization-orange?logo=chartdotjs)
+
+## Milestones Implemented
+- Core Milestones
+    - [Milestone-VP DB-Relationship](#milestone-vp-db-relationship)
+    - [Milestone-VP Auth-RBAC](#milestone-vp-auth-rbac)
+    - [Milestone-VP Admin-Dashboard-Management](#milestone-vp-admin-dashboard-management)
+    - [Milestone-VP User-Dashboard-Management](#milestone-vp-user-dashboard-management)
+    - [Milestone-VP Summary-Users-Admin](#milestone-vp-summary-users-admin)
+    - [Milestone-VP Cost-Calculation](#milestone-vp-cost-calculation)
+- Optional Milestones
+    - [Milestone-VP Search-Implemented](#milestone-vp-search-implemented) `optional`
+    - [Milestone-VP Charts](#milestone-vp-charts) `optional`
+    - [Milestone-VP Responsive-UI](#milestone-vp-responsive-ui) `optional`
 
 ## Issues Encountered
 ### Milestone-VP DB-Relationship
-- initializing db for each model causing inconsistency in the database instances. `Resolved`
-- circular import issue where db was initiated in app and models import db from app, but app imports models. `Resolved`
-- cannot delete Spot that is empty, but had been reserved in the past due to foreign key constraints in Reservations table `Resolved`
+- Initializing `db` for each model using an independent database instances leads to unsynchronized data access.  `Resolved`
+- Circular import issue where `db` was initiated in `app.py` and `models.py` import `db` from `app.py`, but `app.py` imports `models.py`. `Resolved`
+- Could not delete a Spot that was empty but had been reserved in the past due to foreign key constraints in the Reservations table. `Resolved`
 
 ### Milestone-VP Auth-RBAC
-- used different routes for GET and POST requests for login and signup form causing inconsistency while redirecting `Resolved`
-- initially used `href='admin_signup.html'` which causes errors while rendered by flask. switched to runtime jinja templating to pass href values using `url_for` function `Resolved`
+- Used different routes for GET and POST requests for login and signup forms causing inconsistency while redirecting. `Resolved`
+- Initially used `href='admin_signup.html'` which caused errors while being rendered by flask. Switched to runtime jinja templating to pass `href` values using `url_for` function. `Resolved`
 
 ### Milestone-VP Admin-Dashboard-Management
-- Reservations table didn't allow deletion of a spot that had been reserved in the past due to foreign key constraints `Resolved`
-- Lot details being displayed where varying in size depending on number of spots in it. `Resolved`
+- Reservations table didn't allow deletion of a spot that had been reserved in the past due to foreign key constraints. `Resolved`
+- Lot details being displayed varied in size depending on the number of spots in it. `Resolved`
 
 ### Milestone-VP User-Dashboard-Management
-- forgot to add user_id in url for user's homepage `Resolved`
-- loading reservation, users, lots, and spots for home page takes time. added joinedload `Resolved`
-- joinedload syntax issues couldn't be resolved. used raw SQL query. `Resolved`
-- calculation of Price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation `Resolved`
+- Forgot to add `user_id` in url for the user's homepage. `Resolved`
+- Loading reservations, users, lots, and spots for home page was inefficient (lazy loading each lot); added joinedload. `Resolved`
+- Joinedload syntax issues couldn't be resolved; switched to raw SQL query. `Resolved`
+- Calculation of price in `user_reserve_confirm.html` for Milestone-VP Cost-Calculation. `Resolved`
 
 ### Milestone-VP Summary-Users-Admin
-- unable to accomodate reservation history for users in `/adminuser` (added new route `/adminhistory`) `Resolved`
-- calculation of time parked in jinja templating leading to errors as datetime wasn't in context `Resolved`
+- Unable to accommodate reservation history for users in `/adminuser` (added new route `/adminhistory`). `Resolved`
+- Calculation of time parked in Jinja templating leading to errors as datetime wasn't in context. `Resolved`
 
 ### Milestone-VP Cost-Calculation
-- displaying price as difference of leaving timee and parking time was challenging in jinja `Resolved`
+- Calculating duration as difference of leaving time and parking time was challenging in Jinja. `Resolved`
 
 ### Milestone-VP Search-Implemented
-- alignment issues `Resolved`
+- Alignment issues. `Resolved`
 
 ### Milestone-VP Charts
-- jinja's `tojson` method converted `[]` to `'[]'` leading to empty list checks failing `Resolved`
+- Jinja's `tojson` method converted `[]` to `'[]'`, leading to empty list checks failing. `Resolved`
 
+### Milestone-VP Responsive-UI
+- No issues faced as used Bootstrap styling was used from beginning of project.
 
+### Other improvments
+- add relative css file linking in all html templates.
+- use error_page.html more
+- check html files for any other improvements
