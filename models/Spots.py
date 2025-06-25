@@ -1,5 +1,4 @@
 import enum
-from flask_sqlalchemy import SQLAlchemy
 from mydb import db
 
 class Status(enum.Enum):

@@ -1,4 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
 from mydb import db
 
 class Reservations(db.Model):

@@ -63,8 +63,3 @@ This is a responsive, web-based parking lot management system developed for the 
 
 ### Milestone-VP Responsive-UI
 - No issues faced as used Bootstrap styling was used from beginning of project.
-
-### Other improvments
-- add relative css file linking in all html templates.
-- use error_page.html more
-- check html files for any other improvements

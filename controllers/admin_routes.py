@@ -20,7 +20,7 @@ def days(month,year):
 @admin_routes.route("/adminhome")
 def adminhome():
     if session.get("role")!="ADMIN":
-        return "INVALID PAGE REQUEST"
+        return render_template("error_page.html", error_title = "Invalid page", error_text = f"Please re-login <a href = {url_for('main')}>BACK</a>")
     
     lots_join_spots: list[Lots] = Lots.query.options(joinedload(Lots.spots)).all()
     return render_template("admin_login.html", all_lots=lots_join_spots)
@@ -29,7 +29,7 @@ def adminhome():
 def editlot(lot_id):
     lot = Lots.query.filter_by(lot_id=lot_id).first()
     if lot==None:
-        return "ERROR editlot lot not found!"
+        return render_template("error_page.html", error_title = "Invalid lot", error_text = f"ERROR editlot lot not found! <a href = {url_for('admin_routes.adminhome')}>BACK</a>")
     
     if request.method == "POST":
         lot_loc = request.form.get("location")
@@ -204,6 +204,7 @@ def adminhistory():
 def adminsearch():
     search = request.args.get("searchID")
     choice = request.args.get("choice")
+    ## check None in user
     if search!=None and search!="":
         if choice=="user_id":
             user = Users.query.filter_by(user_id = int(search)).first()

@@ -63,11 +63,19 @@ def confirmreleasespot(user_id, spot_id):
     if spot.status==Status.O:
         spot.status = Status.A
     else:
-        return "ERROR spot status user_routes"
+        return render_template(
+                "error_page.html",
+                error_title = "Releasing failed",
+                error_text = f"Spot isn't occupied <a href = {url_for('user_routes.releasespot',user_id = user_id, spot_id = spot_id)}>BACK</a>"
+            )
     if reserved.leaving_timestamp==None:
         reserved.leaving_timestamp = datetime.now()
     else:
-        return "ERROR leaving timestamp user_routes"
+        return render_template(
+                "error_page.html",
+                error_title = "Releasing failed",
+                error_text = f"Spot seems to be released already <a href = {url_for('user_routes.releasespot',user_id = user_id, spot_id = spot_id)}>BACK</a>"
+            )
     db.session.commit()
     return redirect(url_for("user_routes.home",user_id = session["user_id"]))
 
@@ -88,12 +96,21 @@ def reservespot(user_id, lot_id):
     if request.method=="POST":
         available = [i for i in lot.spots if i.status==Status.A]
         if len(available)<=0:
-            return "lot empty"
+            return render_template(
+                "error_page.html",
+                error_title = "Booking Failed",
+                error_text = f"Lot seems to be full <a href = {url_for('user_routes.bookspot',user_id = user_id)}>BACK</a>"
+            )
         spot = available[0]
         if spot.status==Status.A:
             spot.status = Status.O
         else:
-            return "invalid status"
+            return render_template(
+                "error_page.html",
+                error_title = "Booking Failed",
+                error_text = f"Spot seems to be booked <a href = {url_for('user_routes.bookspot',user_id = user_id)}>BACK</a>"
+            )
+    
         res=Reservations(
             spot_id = spot.spot_id,
             user_id = user_id,
