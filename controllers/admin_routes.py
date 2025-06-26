@@ -57,7 +57,7 @@ def editlot(lot_id):
         lot.location = lot_loc
         lot.address = lot_address
         lot.pincode = int(pincode)
-        lot.rate = float(rate)
+        lot.price = float(rate)
         for i in range(int(max_spots)-lot.max_spots):
             new_spot = Spots(
                 lot_id = lot.lot_id,
