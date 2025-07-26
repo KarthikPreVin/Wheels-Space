@@ -289,6 +289,6 @@ def adminedit():
             # user.address=address
             # user.pincode=pincode
             # db.session.commit()
-            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=False, alert_text = "Updated Successfully")        
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=False, alert_text = "Admin details editing disabled in demo version")        
         
     return render_template("admin_edit.html", user=user, hide_alert=True)
