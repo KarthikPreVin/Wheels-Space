@@ -284,11 +284,11 @@ def adminedit():
         elif len(pincode)==0:
             return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=True, alert_text = "Pincode cannot be empty")        
         else:
-            user.passw = password
-            user.name  = fullname
-            user.address=address
-            user.pincode=pincode
-            db.session.commit()
-            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=False, alert_text = "Updated Successfully")        
+            # user.passw = password
+            # user.name  = fullname
+            # user.address=address
+            # user.pincode=pincode
+            # db.session.commit()
+            return render_template("admin_edit.html", user=user, hide_alert = False, bad_alert=False, alert_text = "Admin details editing disabled in demo version")        
         
     return render_template("admin_edit.html", user=user, hide_alert=True)

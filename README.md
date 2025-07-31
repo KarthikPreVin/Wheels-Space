@@ -3,7 +3,8 @@
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 
 ## Description
-This is a responsive, web-based parking lot management system developed for the May 2025 MAD1 (BSCS2003P) project. The application provides a user-friendly interface with a modern UI design, user authentication, admin management, and visual summaries. It is built mainly using Flask, HTML/CSS, and Bootstrap 5. The system supports both users and administrators with role-based access and dynamic data handling.
+This is a responsive, web-based parking lot management system developed for the May 2025 MAD1 (BSCS2003P) project. The application provides a user-friendly interface with a modern UI design, user authentication, admin management, and visual summaries. It is built mainly using Flask, HTML/CSS, and Bootstrap 5. The system supports both users and administrators with role-based access and dynamic data handling. 
+Default admin login credentials - username: admin@123, password: admin
 
 ## Demo
 
