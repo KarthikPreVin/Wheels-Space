@@ -12,7 +12,7 @@ Default admin credentials
 - email: `admin@123`
 - password: `admin`
 
-Link to Project Demo: [Wheels' Space](https://mad1-vehicle-parking-app-v1.onrender.com/)
+Link to Project Demo: [Wheels' Space](https://wheels-space-hosting.onrender.com/)
 
 Link to Project video: [Video Demo](https://drive.google.com/file/d/1HagijjnlAaGmR6KrDoTCJrJKpzgqW9Cn/view?usp=sharing)
 
